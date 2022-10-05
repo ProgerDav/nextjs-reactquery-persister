@@ -2,18 +2,13 @@ import Redis from "ioredis";
 
 class RedisStorage {
   static getInstance() {
-    if (typeof window === "undefined") {
-      //   const Redis = require("ioredis");
-      const instance = new Redis({
-        password: process.env.REDIS_PASSWORD,
-        host: process.env.REDIS_HOST,
-        port: process.env.REDIS_PORT,
-      });
+    const instance = new Redis({
+      password: process.env.REDIS_PASSWORD,
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+    });
 
-      return new RedisStorage(instance);
-    }
-
-    return null;
+    return new RedisStorage(instance);
   }
 
   constructor(redis) {
