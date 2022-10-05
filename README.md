@@ -2,7 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies, and start a local redis instance.
+
+Secondly, create a `.env` file and populate it similar to `.env.example`
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -12,23 +16,21 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Provided Examples
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+There are 3 routes
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### /client-only
 
-## Learn More
+In this case the fetching happens exclusively on the client side.
+Page rendering should be fast, but there will be a loading indicator
 
-To learn more about Next.js, take a look at the following resources:
+### /prefetched-nocache
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The query is prefetched (based on default parameter) on the server-side. The page load is slow,
+but data is immediately visible.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### /prefetched
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The query is still prefetched, so the very first load time is slow.
+However, the queryClient is persisted in redis, thus the subsequent loading is much faster.
