@@ -10,7 +10,7 @@ function Static({ defaultCountry }) {
   return <CountryInput defaultCountry={defaultCountry} />;
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const queryClient = new QueryClient();
   const DEFAULT_COUNTRY = "armenia";
 
